@@ -1,0 +1,30 @@
+{
+  "name": "amazon-listing-audit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "亚马逊 Listing 五维大检查流水线：抓取 → 视频/图片解析 → 视觉审查 → 评分 → 飞书文档与表格回写",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "edge": "node scripts/launch-edge.mjs",
+    "buybox": "node scripts/probe-buybox-us.mjs 10001",
+    "fetch": "node scripts/fetch-asins.mjs",
+    "manifest": "node scripts/build-image-manifest.mjs",
+    "videos": "node scripts/probe-videos-v9.mjs",
+    "videos:apply": "node scripts/apply-video-counts-v9.mjs",
+    "vf:normalize": "node scripts/normalize-vf.mjs",
+    "vf:merge": "node scripts/merge-visual-findings.mjs",
+    "vf:sanitize": "node scripts/sanitize-findings.mjs && node scripts/sanitize-findings2.mjs && node scripts/sanitize-findings3.mjs && node scripts/sanitize-findings4.mjs",
+    "text": "node scripts/text-analysis.mjs",
+    "health": "node scripts/health-analysis.mjs",
+    "report": "node scripts/build-reports.mjs",
+    "publish": "node scripts/refresh-docs.mjs",
+    "sheet": "node scripts/write-sheet-rows.mjs",
+    "overview": "node scripts/write-overview.mjs",
+    "verify:docs": "node scripts/verify-docs.mjs",
+    "verify:sheet": "node scripts/verify-sheet.mjs",
+    "crop": "node scripts/crop.mjs"
+  },
+  "keywords": ["amazon", "listing", "audit", "compliance", "lark", "feishu"],
+  "license": "UNLICENSED"
+}

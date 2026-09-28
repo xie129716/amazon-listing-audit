@@ -1,0 +1,18 @@
+{
+  "_说明": "把本文件复制为 config.json 并按实际环境填写；config.json 已在 .gitignore 中，不会入库。",
+  "sheet": {
+    "url": "https://<your-tenant>.feishu.cn/sheets/<SHEET_TOKEN>",
+    "mainSheetId": "a81751",
+    "overviewSheetName": "检查总览"
+  },
+  "larkCli": "C:\\\\path\\\\to\\\\lark-cli.exe",
+  "edge": {
+    "exe": "C:\\\\Program Files (x86)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge.exe",
+    "profileDir": "E:\\\\listing_exam\\\\.edge-profile",
+    "cdpPort": 9333
+  },
+  "deliveryZip": "10001",
+  "paths": {
+    "root": "E:/listing_exam"
+  }
+}

@@ -1,0 +1,22 @@
+# ---- 浏览器会话（含 Amazon/飞书 cookie，绝对不能入库）----
+.edge-profile/
+.tmp/
+
+# ---- 业务数据（ERP 全表、原始抓取、商品图）----
+# 这些是公司经营数据，默认不入库；如需随仓库带走，删掉下面这行即可。
+# （reports/ 已包含在内，含 ASIN、销量、星级等经营信息 → 仓库务必保持 private）
+data/
+
+# ---- 依赖与构建产物 ----
+node_modules/
+*.log
+
+# ---- 个人配置（含飞书表格链接、lark-cli 路径等）----
+config.json
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+*.swp
