@@ -3,7 +3,7 @@ import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
 
-const asins = process.argv.slice(2).length ? process.argv.slice(2) : ['B0FDQMCKRM', 'B0FF8YBX8P'];
+const asins = process.argv.slice(2).length ? process.argv.slice(2) : ['B0EX0001', 'B0EX0002'];
 const cdp = await connect();
 const sessionId = await getPageSession(cdp);
 const ev = makeEval(cdp, sessionId);

@@ -1,3 +1,4 @@
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 
 /* ============================================================================
@@ -113,18 +114,18 @@ export function analyseHealth(rec, live = {}) {
 }
 
 if (import.meta.url === `file:///${process.argv[1].replace(/\\/g, '/')}`) {
-  const sheet = JSON.parse(readFileSync('E:/listing_exam/data/derived/sheet-all-records.json', 'utf8'));
+  const sheet = JSON.parse(readFileSync(`${ROOT}/data/derived/sheet-all-records.json`, 'utf8'));
   const out = {};
   for (const rec of sheet.records) {
     let live = {};
-    try { live = JSON.parse(readFileSync(`E:/listing_exam/data/raw/${rec.ASIN}.json`, 'utf8')); } catch {}
+    try { live = JSON.parse(readFileSync(`${ROOT}/data/raw/${rec.ASIN}.json`, 'utf8')); } catch {}
     const h = analyseHealth(rec, live);
     out[rec.ASIN] = { row: rec.__row, ...h };
     console.log(`\n===== row ${rec.__row} ${rec.ASIN} =====`);
     console.log(`  指标: 30天销量=${h.metrics.sell30} 日均=${h.metrics.daily} 可售+在途=${h.metrics.stockAvail} 星级=${h.metrics.rating} 评论=${h.metrics.reviews} 可支撑=${h.metrics.coverDays}天`);
     for (const i of h.issues) console.log(`  [${i.code}] ${i.level.padEnd(4)} ${i.msg}`);
   }
-  mkdirSync('E:/listing_exam/data/derived', { recursive: true });
-  writeFileSync('E:/listing_exam/data/derived/health-analysis.json', JSON.stringify(out, null, 2), 'utf8');
+  mkdirSync(`${ROOT}/data/derived`, { recursive: true });
+  writeFileSync(`${ROOT}/data/derived/health-analysis.json`, JSON.stringify(out, null, 2), 'utf8');
   console.log('\nwritten data/derived/health-analysis.json');
 }

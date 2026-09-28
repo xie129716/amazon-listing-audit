@@ -1,11 +1,11 @@
+import { ROOT, LARK_CLI } from './paths.mjs';
 import { spawnSync } from 'node:child_process';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 
 /* 用 DocxXML 上传/覆盖飞书诊断报告（v7：报告内含「对照图」单元格内嵌原图）。
-   cwd 必须是 E:/listing_exam —— @file 与 <img path="@./..."> 都只接受 cwd 下的相对路径。 */
+   cwd 必须是项目根目录（脚本会自动解析 ROOT） —— @file 与 <img path="@./..."> 都只接受 cwd 下的相对路径。 */
 
-const CLI = 'C:\\Users\\admin\\.workbuddy\\binaries\\node\\cli-connector-packages\\node_modules\\@larksuite\\cli\\bin\\lark-cli.exe';
-const ROOT = 'E:/listing_exam';
+const CLI = LARK_CLI;
 const REPORTS = `${ROOT}/reports`;
 const MAP = `${ROOT}/data/derived/doc-urls.json`;
 

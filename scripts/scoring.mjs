@@ -23,11 +23,11 @@
    ========================================================================== */
 
 /** 本公司全部自有品牌（跨店铺） */
-export const OWN_BRANDS = ['LUVCOSY', 'FANTOVO', 'KIICII', 'PUREKRA', 'LAWNFUL', 'VIOTIIN', 'VASTICIDE'];
+export const OWN_BRANDS = ['BRAND_A', 'BRAND_B', 'BRAND_C', 'BRAND_D', 'LAWNFUL', 'BRAND_F', 'BRAND_G'];
 /** 店铺 → 该店铺允许出现的自有品牌（唯一） */
 export const STORE_BRAND = {
-  'Luvcosy-US': 'LUVCOSY', 'Fantovo-US': 'FANTOVO', 'Kiicii-US': 'KIICII',
-  'Purekra-US': 'PUREKRA', 'Lawnful-US': 'LAWNFUL', 'Viotiin-US': 'VIOTIIN', 'Vasticide-US': 'VASTICIDE',
+  'BRAND_A-US': 'BRAND_A', 'BRAND_B-US': 'BRAND_B', 'BRAND_C-US': 'BRAND_C',
+  'BRAND_D-US': 'BRAND_D', 'STORE_E': 'LAWNFUL', 'BRAND_F-US': 'BRAND_F', 'BRAND_G-US': 'BRAND_G',
 };
 export const RUBRIC_VERSION = 'v10';
 

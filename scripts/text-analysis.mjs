@@ -1,3 +1,4 @@
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
 
 /* ============================================================================
@@ -57,7 +58,7 @@ const MEDICAL = [
 ];
 const ALLCAPS_OK = new Set(['BPA', 'PVC', 'ABS', 'USB', 'LED', 'LCD', 'FDA', 'LFGB', 'SGS', 'OZ', 'ML', 'CM', 'MM', 'FT', 'PC', 'PCS', 'SET', 'XL', 'XXL', 'USA', 'UK', 'EU', 'FBA', 'ASIN', 'SKU', 'UPC', 'GTIN', 'PH', 'KG', 'LB', 'LBS', 'CT', 'PK', 'QTY', 'SQ', 'WT',
   // 自有品牌名：A4 规则本身写明「品牌 / 型号 / 缩写」全大写是允许的，不应计入违规
-  'LUVCOSY', 'FANTOVO', 'KIICII', 'PUREKRA', 'LAWNFUL', 'VIOTIIN', 'VASTICIDE']);
+  'BRAND_A', 'BRAND_B', 'BRAND_C', 'BRAND_D', 'LAWNFUL', 'BRAND_F', 'BRAND_G']);
 const TITLE_BANNED_CHARS = ['!', '$', '?', '_', '{', '}', '^', '¬', '¦', '~'];
 const SMALL_WORDS = new Set(['a', 'an', 'and', 'or', 'the', 'for', 'with', 'of', 'to', 'in', 'on', 'at', 'by', 'from', 'as', 'but', 'nor', 'per', 'via']);
 
@@ -219,8 +220,8 @@ export function analyseAsin(json) {
 }
 
 if (import.meta.url === `file:///${process.argv[1].replace(/\\/g, '/')}`) {
-  const RAW = 'E:/listing_exam/data/raw';
-  const OUT = 'E:/listing_exam/data/derived/text-analysis.json';
+  const RAW = `${ROOT}/data/raw`;
+  const OUT = `${ROOT}/data/derived/text-analysis.json`;
   // 支持 `node text-analysis.mjs ASIN...`；不传参数则处理 data/raw 下全部
   const argAsins = process.argv.slice(2).filter((a) => /^B0[A-Z0-9]{8}$/.test(a));
   const ASINS = argAsins.length
@@ -244,7 +245,7 @@ if (import.meta.url === `file:///${process.argv[1].replace(/\\/g, '/')}`) {
     for (const i of r.compatibility) console.log(`  [${i.code}] ${i.level.padEnd(4)} ${i.msg}`);
     for (const i of [...r.mechanics, ...r.spelling]) console.log(`  [${i.code}] ${i.level.padEnd(4)} ${i.msg}${i.samples ? ' -> ' + JSON.stringify(i.samples) : ''}`);
   }
-  mkdirSync('E:/listing_exam/data/derived', { recursive: true });
+  mkdirSync(`${ROOT}/data/derived`, { recursive: true });
   writeFileSync(OUT, JSON.stringify(all, null, 2), 'utf8');
   console.log(`\nwritten ${OUT}（共 ${Object.keys(all).length} 个 ASIN）`);
 }

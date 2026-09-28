@@ -2,7 +2,7 @@
    视频统计 v8 —— 权威口径（2026-09-16 修正）
 
    背景：v7 用 `#va-related-videos-widget` 的可见条目原文计数，
-   但该 carousel 里**混入了「相关商品」的视频**，导致 B0FDQMCKRM 算成 8 条红人（实际 5 条）。
+   但该 carousel 里**混入了「相关商品」的视频**，导致 B0EX0002 算成 8 条红人（实际 5 条）。
 
    正确做法：读页面内嵌的视频元数据 `carouselItems`，每条都带
      · creatorType        : Seller | Influencer | Customer
@@ -15,15 +15,16 @@
    分类：Seller → 品牌视频；Influencer → 红人视频；Customer → 用户视频。
    （同一红人的多条视频不去重，按条目计。）
    ========================================================================== */
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
 
-const sheet = JSON.parse(readFileSync('E:/listing_exam/data/derived/sheet-all-records.json', 'utf8'));
+const sheet = JSON.parse(readFileSync(`${ROOT}/data/derived/sheet-all-records.json`, 'utf8'));
 const recByAsin = {};
 for (const r of sheet.records) recByAsin[r.ASIN] = r;
 
-const DEFAULT = ['B0DJQS14DS', 'B0GF1Z3CFH', 'B0FL6X3HRW', 'B0FF8YBX8P', 'B0GGNM98LD', 'B0FDQMCKRM'];
+const DEFAULT = ['B0EX0001', 'B0EX0005', 'B0EX0004', 'B0EX0003', 'B0EX0006', 'B0EX0002'];
 const ASINS = process.argv.slice(2).length ? process.argv.slice(2) : DEFAULT;
 
 const EXTRACT = `(() => {
@@ -119,6 +120,6 @@ for (const asin of ASINS) {
   await sleep(2000);
 }
 
-writeFileSync('E:/listing_exam/data/derived/video-counts-v8.json', JSON.stringify(out, null, 2), 'utf8');
+writeFileSync(`${ROOT}/data/derived/video-counts-v8.json`, JSON.stringify(out, null, 2), 'utf8');
 console.log('\n-> data/derived/video-counts-v8.json');
 cdp.ws.close();

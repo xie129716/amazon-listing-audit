@@ -2,17 +2,18 @@
  * v8 数据修订（用户复核反馈）
  *
  * 用户指出 3 处问题，均已按图片原图核实：
- *  ① B0DJQS14DS 报的 "HEALTHCARE PROFESSINAL"（A+ 图 06）**图上根本不存在** → 子代理误报，整条删除。
+ *  ① B0EX0001 报的 "HEALTHCARE PROFESSINAL"（A+ 图 06）**图上根本不存在** → 子代理误报，整条删除。
  *     连带删除同源的「借用第三方获奖徽章」条目（同图同样不存在该徽章）。
  *     A+ 图 04 "Vibrant colors" 亦不成立（画面确有多色罐体）→ 改列提醒。
  *  ② 「无法辨认的道具」→ 既然无法辨认，就不存在品牌侵权风险 → 不再扣分（规则已改，数据保留为提示）。
  *  ③ 「展示数量/颜色与标题不一致」→ 展示数量不需要跟着标题走 → 不再扣分（规则已改，数据保留为提示）。
  */
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const P = 'E:/listing_exam/data/derived/visual-findings.json';
+const P = `${ROOT}/data/derived/visual-findings.json`;
 const v = JSON.parse(readFileSync(P, 'utf8'));
-const a = v['B0DJQS14DS'];
+const a = v['B0EX0001'];
 
 /* ① 删除被证伪的拼写错误与借用背书 */
 const removedSpelling = a.spellingInImage || [];

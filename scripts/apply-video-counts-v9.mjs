@@ -1,9 +1,10 @@
 /* 把 v9 权威视频统计写入 visual-findings.json（替换 v7/v8 的错误计数）。 */
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const P = 'E:/listing_exam/data/derived/visual-findings.json';
+const P = `${ROOT}/data/derived/visual-findings.json`;
 const vf = JSON.parse(readFileSync(P, 'utf8'));
-const v9 = JSON.parse(readFileSync('E:/listing_exam/data/derived/video-counts-v9.json', 'utf8'));
+const v9 = JSON.parse(readFileSync(`${ROOT}/data/derived/video-counts-v9.json`, 'utf8'));
 
 const nameOf = (text, creator) => {
   // 卡片文本 = "时长 标题 创作者"，创作者取链接 tag 兜底

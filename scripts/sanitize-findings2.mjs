@@ -1,7 +1,8 @@
 /** 清掉子代理 notes 里「已计入 xxx 字段」这类内部记账式表述。 */
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const P = 'E:/listing_exam/data/derived/visual-findings.json';
+const P = `${ROOT}/data/derived/visual-findings.json`;
 const vf = JSON.parse(readFileSync(P, 'utf8'));
 
 const FIELD = '(adaptedObjectBrands|thirdPartyUnrelated|unreadableProps|remainingIssues|brandVariants|materialClaims|spellingInImage|absoluteClaims|countColorTension|notes)';

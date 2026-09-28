@@ -1,3 +1,4 @@
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
@@ -59,5 +60,5 @@ for (const asin of ASINS) {
   console.log(`  → 品牌视频 1 + 红人 ${creators.length} + 用户 ${reviews.length} = ${1 + creators.length + reviews.length}`);
   await sleep(2500);
 }
-writeFileSync('E:/listing_exam/data/derived/video-full-list.json', JSON.stringify(out, null, 2), 'utf8');
+writeFileSync(`${ROOT}/data/derived/video-full-list.json`, JSON.stringify(out, null, 2), 'utf8');
 cdp.ws.close();

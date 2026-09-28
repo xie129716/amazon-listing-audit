@@ -1,3 +1,4 @@
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
@@ -53,5 +54,5 @@ for (const asin of ASINS) {
   d.entries.forEach((e, i) => console.log(`   [${i + 1}] ${e.dur}  ${e.text.slice(0, 120)}`));
   await sleep(2500);
 }
-writeFileSync('E:/listing_exam/data/derived/video-parsed-entries.json', JSON.stringify(out, null, 2), 'utf8');
+writeFileSync(`${ROOT}/data/derived/video-parsed-entries.json`, JSON.stringify(out, null, 2), 'utf8');
 cdp.ws.close();

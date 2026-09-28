@@ -1,12 +1,13 @@
+import { ROOT } from './paths.mjs';
 import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import { parseGallery } from './parse-gallery.mjs';
 
 const ASINS = process.argv.slice(2).length
   ? process.argv.slice(2)
-  : ['B0DJQS14DS', 'B0GF1Z3CFH', 'B0FL6X3HRW', 'B0FF8YBX8P', 'B0GGNM98LD'];
+  : ['B0EX0001', 'B0EX0004', 'B0EX0003', 'B0EX0002', 'B0EX0005'];
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0';
-const IMG_DIR = 'E:/listing_exam/data/images';
-const MANIFEST = 'E:/listing_exam/data/derived/image-manifest.json';
+const IMG_DIR = `${ROOT}/data/images`;
+const MANIFEST = `${ROOT}/data/derived/image-manifest.json`;
 mkdirSync(IMG_DIR, { recursive: true });
 
 function parseAplus(html) {
@@ -49,8 +50,8 @@ async function dl(url, path) {
 const manifest = {};
 if (existsSync(MANIFEST)) { try { Object.assign(manifest, JSON.parse(readFileSync(MANIFEST, 'utf8'))); } catch {} }
 for (const asin of ASINS) {
-  const html = readFileSync(`E:/listing_exam/data/raw/${asin}.html`, 'utf8');
-  const json = JSON.parse(readFileSync(`E:/listing_exam/data/raw/${asin}.json`, 'utf8'));
+  const html = readFileSync(`${ROOT}/data/raw/${asin}.html`, 'utf8');
+  const json = JSON.parse(readFileSync(`${ROOT}/data/raw/${asin}.json`, 'utf8'));
   const gallery = parseGallery(html);
   const aplusUrls = parseAplus(html);
 
@@ -71,7 +72,7 @@ for (const asin of ASINS) {
     const p = `${IMG_DIR}/${asin}-MAIN.jpg`;
     const size = await dl(mainUrl, p);
     if (typeof size === 'string' && size.startsWith('ERR')) console.log(`  ! ${asin} 主图下载失败：${size}`);
-    entry.main = { label: '主图 MAIN', path: p.replace('E:/listing_exam/', ''), url: mainUrl, size };
+    entry.main = { label: '主图 MAIN', path: p.replace(`${ROOT}/`, ''), url: mainUrl, size };
   } else {
     console.log(`  ! ${asin} 无法确定主图地址`);
   }
@@ -82,7 +83,7 @@ for (const asin of ASINS) {
     const p = `${IMG_DIR}/${asin}-${g.variant}.jpg`;
     const size = await dl(g.hiRes, p);
     if (typeof size === 'string' && size.startsWith('ERR')) console.log(`  ! ${asin} ${g.variant} 下载失败：${size}`);
-    entry.galleryImages.push({ label: `副图 ${g.variant}`, path: p.replace('E:/listing_exam/', ''), url: g.hiRes, size });
+    entry.galleryImages.push({ label: `副图 ${g.variant}`, path: p.replace(`${ROOT}/`, ''), url: g.hiRes, size });
   }
 
   entry.videoSlots = (json.gallery || []).filter((g) => g.kind === 'video').map((g, i) => ({ label: `视频位 ${i + 1}`, thumb: g.thumb }));
@@ -90,7 +91,7 @@ for (const asin of ASINS) {
   for (let i = 0; i < aplusUrls.length; i++) {
     const p = `${IMG_DIR}/${asin}-APLUS-${String(i + 1).padStart(2, '0')}.jpg`;
     const size = await dl(aplusUrls[i], p);
-    entry.aplus.push({ label: `A+ 图 ${i + 1}`, path: p.replace('E:/listing_exam/', ''), url: aplusUrls[i], size });
+    entry.aplus.push({ label: `A+ 图 ${i + 1}`, path: p.replace(`${ROOT}/`, ''), url: aplusUrls[i], size });
   }
 
   manifest[asin] = entry;

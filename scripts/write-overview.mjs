@@ -1,9 +1,10 @@
+import { ROOT, LARK_CLI } from './paths.mjs';
 import { spawnSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const CLI = 'C:\\Users\\admin\\.workbuddy\\binaries\\node\\cli-connector-packages\\node_modules\\@larksuite\\cli\\bin\\lark-cli.exe';
-const URL = 'https://c7lhitw5pz.feishu.cn/sheets/KsxxsyWQFhlxmet2nIycYU3DnAh';
-process.chdir('E:/listing_exam');
+const CLI = LARK_CLI;
+const URL = 'https://<TENANT>.feishu.cn/sheets/<SHEET_TOKEN>';
+process.chdir(`${ROOT}`);
 
 const scores = JSON.parse(readFileSync('data/derived/scores.json', 'utf8'));
 const docs = JSON.parse(readFileSync('data/derived/doc-urls.json', 'utf8'));
@@ -15,7 +16,7 @@ for (const r of sheet.records) recByAsin[r.ASIN] = r;
 
 const OVERVIEW_ASINS = process.argv.slice(2).length
   ? process.argv.slice(2)
-  : ['B0DJQS14DS', 'B0GF1Z3CFH', 'B0FL6X3HRW', 'B0FF8YBX8P', 'B0GGNM98LD', 'B0FDQMCKRM'];
+  : ['B0EX0001', 'B0EX0005', 'B0EX0004', 'B0EX0003', 'B0EX0006', 'B0EX0002'];
 
 const SHEET_NAME = '检查总览';
 
@@ -123,7 +124,7 @@ run(['sheets', '+cells-clear', '--url', URL, '--sheet-id',
   '--range', 'A1:T200', '--scope', 'content', '--yes', '--as', 'user'], 'cells-clear');
 
 const res = spawnSync(CLI, ['sheets', '+table-put', '--url', URL, '--as', 'user', '--sheets', '@./data/derived/overview-payload.json'],
-  { encoding: 'utf8', cwd: 'E:/listing_exam', maxBuffer: 32 * 1024 * 1024 });
+  { encoding: 'utf8', cwd: `${ROOT}`, maxBuffer: 32 * 1024 * 1024 });
 let j = null; try { j = JSON.parse(res.stdout); } catch {}
 console.log('table-put ok=', j?.ok, j?.error?.message?.slice(0, 300) || '');
 if (!j?.ok) console.log((res.stdout || res.stderr || '').slice(0, 800));

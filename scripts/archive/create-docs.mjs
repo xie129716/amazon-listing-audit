@@ -1,9 +1,10 @@
+import { ROOT, LARK_CLI } from './paths.mjs';
 import { spawnSync } from 'node:child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 
-const CLI = 'C:\\Users\\admin\\.workbuddy\\binaries\\node\\cli-connector-packages\\node_modules\\@larksuite\\cli\\bin\\lark-cli.exe';
-const REPORTS = 'E:/listing_exam/reports';
-const MAP = 'E:/listing_exam/data/derived/doc-urls.json';
+const CLI = LARK_CLI;
+const REPORTS = `${ROOT}/reports`;
+const MAP = `${ROOT}/data/derived/doc-urls.json`;
 
 const ASINS = process.argv.slice(2);
 if (!ASINS.length) { console.error('usage: node create-docs.mjs ASIN...'); process.exit(1); }
@@ -33,6 +34,6 @@ for (const asin of ASINS) {
     console.log(`${asin}: 创建失败 -> ${(res.stdout || res.stderr || '').slice(0, 300)}`);
   }
 }
-mkdirSync('E:/listing_exam/data/derived', { recursive: true });
+mkdirSync(`${ROOT}/data/derived`, { recursive: true });
 writeFileSync(MAP, JSON.stringify(map, null, 2), 'utf8');
 console.log('\ndoc-urls.json updated');

@@ -1,9 +1,10 @@
 /* 结构化诊断：把 video widget 的原始 DOM / innerText 全量 dump 出来，看清条目到底怎么组织的。 */
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
 
-const asin = process.argv[2] || 'B0FDQMCKRM';
+const asin = process.argv[2] || 'B0EX0001';
 const cdp = await connect();
 const sessionId = await getPageSession(cdp);
 const ev = makeEval(cdp, sessionId);
@@ -44,7 +45,7 @@ const d = await ev(`(() => {
   return res;
 })()`);
 
-writeFileSync('E:/listing_exam/.tmp/video-structure.json', JSON.stringify(d, null, 2), 'utf8');
+writeFileSync(`${ROOT}/.tmp/video-structure.json`, JSON.stringify(d, null, 2), 'utf8');
 console.log('found=', d.found, 'id=', d.id);
 console.log('\n===== innerText =====\n' + (d.innerText || '').slice(0, 4000));
 console.log('\n===== anchors (' + (d.anchors || []).length + ') =====');

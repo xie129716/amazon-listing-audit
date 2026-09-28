@@ -1,8 +1,10 @@
 /* 校验已上线的飞书文档：确认「对照图」单元格内确实嵌了原图，并统计各章节图片数。 */
+import { ROOT, LARK_CLI } from './paths.mjs';
 import { spawnSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 
-const CLI = 'C:\\Users\\admin\\.workbuddy\\binaries\\node\\cli-connector-packages\\node_modules\\@larksuite\\cli\\bin\\lark-cli.exe';
-const docs = JSON.parse((await import('node:fs')).readFileSync('E:/listing_exam/data/derived/doc-urls.json', 'utf8'));
+const CLI = LARK_CLI;
+const docs = JSON.parse(readFileSync(`${ROOT}/data/derived/doc-urls.json`, 'utf8'));
 const ASINS = process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(docs).filter((k) => docs[k]?.documentId);
 
 for (const asin of ASINS) {

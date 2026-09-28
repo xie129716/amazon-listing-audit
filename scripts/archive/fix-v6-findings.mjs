@@ -1,6 +1,7 @@
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const P = 'E:/listing_exam/data/derived/visual-findings.json';
+const P = `${ROOT}/data/derived/visual-findings.json`;
 const v = JSON.parse(readFileSync(P, 'utf8'));
 
 // ============================================================================
@@ -8,25 +9,25 @@ const v = JSON.parse(readFileSync(P, 'utf8'));
 //         红人/用户视频数 = 总数 − 卖家自建数（Amazon 把红人视频并入 #videoCount）
 // ============================================================================
 const VIDEO = {
-  B0DJQS14DS: { total: 6, seller: 1, creator: 5 },
-  B0GF1Z3CFH: { total: 4, seller: 1, creator: 3 },
-  B0FL6X3HRW: { total: 5, seller: 1, creator: 4 },
-  B0FF8YBX8P: { total: 7, seller: 1, creator: 6 },
-  B0GGNM98LD: { total: 1, seller: 1, creator: 0 },
-  B0FDQMCKRM: { total: 7, seller: 1, creator: 6 },
+  B0EX0001: { total: 6, seller: 1, creator: 5 },
+  B0EX0005: { total: 4, seller: 1, creator: 3 },
+  B0EX0004: { total: 5, seller: 1, creator: 4 },
+  B0EX0003: { total: 7, seller: 1, creator: 6 },
+  B0EX0006: { total: 1, seller: 1, creator: 0 },
+  B0EX0002: { total: 7, seller: 1, creator: 6 },
 };
 for (const [asin, c] of Object.entries(VIDEO)) {
   if (v[asin]) v[asin].creatorVideo = { total: c.total, sellerCount: c.seller, creatorCount: c.creator };
 }
 
 // ============================================================================
-// 调整 4：图文矛盾进一步从宽 —— 撤销 B0FF8YBX8P 的两条（属「宣称多于演示」，
+// 调整 4：图文矛盾进一步从宽 —— 撤销 B0EX0003 的两条（属「宣称多于演示」，
 //         非直接矛盾），仅保留「直接相反」型（如宣称不漏却展示漏水）
 // ============================================================================
-if (v.B0FF8YBX8P) {
-  const removed = v.B0FF8YBX8P.misleadingContradiction || [];
-  v.B0FF8YBX8P.unshownClaims = [...(v.B0FF8YBX8P.unshownClaims || []), ...removed.map((x) => ({ msg: x.msg + '（按 v6 从宽：属宣称多于演示，非直接矛盾，仅提醒）' }))];
-  v.B0FF8YBX8P.misleadingContradiction = [];
+if (v.B0EX0003) {
+  const removed = v.B0EX0003.misleadingContradiction || [];
+  v.B0EX0003.unshownClaims = [...(v.B0EX0003.unshownClaims || []), ...removed.map((x) => ({ msg: x.msg + '（按 v6 从宽：属宣称多于演示，非直接矛盾，仅提醒）' }))];
+  v.B0EX0003.misleadingContradiction = [];
 }
 
 // ============================================================================
@@ -34,8 +35,8 @@ if (v.B0FF8YBX8P) {
 //         出现本公司其他店铺品牌，也会被亚马逊判定品牌不一致并产生绩效警告。
 // ============================================================================
 const STORE_BRAND = {
-  'Luvcosy-US': 'LUVCOSY', 'Fantovo-US': 'FANTOVO', 'Kiicii-US': 'KIICII',
-  'Purekra-US': 'PUREKRA', 'Lawnful-US': 'LAWNFUL', 'Viotiin-US': 'VIOTIIN', 'Vasticide-US': 'VASTICIDE',
+  'BRAND_A-US': 'BRAND_A', 'BRAND_B-US': 'BRAND_B', 'BRAND_C-US': 'BRAND_C',
+  'BRAND_D-US': 'BRAND_D', 'STORE_E': 'LAWNFUL', 'BRAND_F-US': 'BRAND_F', 'BRAND_G-US': 'BRAND_G',
 };
 v._storeBrandMap = STORE_BRAND;
 v._brandRuleNote = '品牌判定：图片/文案中仅「本店铺自有品牌」为豁免项；出现本公司其他店铺品牌（如 KC 店铺出现 FT 品牌）同样视为品牌不一致，会触发亚马逊绩效警告，按 −20 计。';

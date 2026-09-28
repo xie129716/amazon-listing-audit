@@ -1,8 +1,9 @@
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 
 export const PORT = 9333;
-export const RAW_DIR = 'E:/listing_exam/data/raw';
+export const RAW_DIR = `${ROOT}/data/raw`;
 
 export class CDP {
   constructor(ws) {

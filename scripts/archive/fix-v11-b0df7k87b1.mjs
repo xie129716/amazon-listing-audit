@@ -1,7 +1,8 @@
-/** B0DF7K87B1 合并后的最终校准：同因合并 + 去重。 */
+/** B0EX0001 合并后的最终校准：同因合并 + 去重。 */
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const P = 'E:/listing_exam/data/derived/vf-B0DF7K87B1.json';
+const P = `${ROOT}/data/derived/vf-B0EX0001.json`;
 const v = JSON.parse(readFileSync(P, 'utf8'));
 
 /* 1. 「A+ 展示非本商品形态（长方形/马克杯/烤盘盖）」同一根因 → 合并为一条 */
@@ -46,7 +47,7 @@ v.remainingIssues = merged.filter((r) => {
 v.remainingIssues = v.remainingIssues.filter((r) => !(r.level === '提示' && /A\+ 图 30/.test(r.where || '') && /句号前多一个空格/.test(String(r.msg))));
 
 writeFileSync(P, JSON.stringify(v, null, 2), 'utf8');
-console.log('B0DF7K87B1 最终校准：');
+console.log('B0EX0001 最终校准：');
 console.log('  图文矛盾:', v.misleadingContradiction.length, '（合并为 1 条，覆盖 7 张图）');
 console.log('  问题清单:', v.remainingIssues.length);
 for (const r of v.remainingIssues) console.log('   [' + r.level + '] ' + (r.where || '') + ' :: ' + String(r.msg).slice(0, 95));

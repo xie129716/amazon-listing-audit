@@ -1,9 +1,10 @@
 /* 按 carousel 的 segment 切分：'Videos for this product' vs 'Related videos for this product'。 */
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
 
-const asins = process.argv.slice(2).length ? process.argv.slice(2) : ['B0FDQMCKRM', 'B0FF8YBX8P'];
+const asins = process.argv.slice(2).length ? process.argv.slice(2) : ['B0EX0001', 'B0EX0002'];
 const cdp = await connect();
 const sessionId = await getPageSession(cdp);
 const ev = makeEval(cdp, sessionId);
@@ -54,5 +55,5 @@ for (const asin of asins) {
   }
   await sleep(2000);
 }
-writeFileSync('E:/listing_exam/.tmp/video-segments.json', JSON.stringify(out, null, 2), 'utf8');
+writeFileSync(`${ROOT}/.tmp/video-segments.json`, JSON.stringify(out, null, 2), 'utf8');
 cdp.ws.close();

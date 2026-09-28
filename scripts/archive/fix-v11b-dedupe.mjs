@@ -1,7 +1,8 @@
 /** 收尾去重：删掉已被合并条目覆盖的重复项。 */
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const P = 'E:/listing_exam/data/derived/vf-B0DF7K87B1.json';
+const P = `${ROOT}/data/derived/vf-B0EX0001.json`;
 const v = JSON.parse(readFileSync(P, 'utf8'));
 
 const DROP = [

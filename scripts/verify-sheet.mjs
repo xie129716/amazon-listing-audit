@@ -1,7 +1,8 @@
+import { LARK_CLI } from './paths.mjs';
 import { spawnSync } from 'node:child_process';
 
-const CLI = 'C:\\Users\\admin\\.workbuddy\\binaries\\node\\cli-connector-packages\\node_modules\\@larksuite\\cli\\bin\\lark-cli.exe';
-const URL = 'https://c7lhitw5pz.feishu.cn/sheets/KsxxsyWQFhlxmet2nIycYU3DnAh';
+const CLI = LARK_CLI;
+const URL = 'https://<TENANT>.feishu.cn/sheets/<SHEET_TOKEN>';
 
 function csv(sheetId, range) {
   const res = spawnSync(CLI, ['sheets', '+csv-get', '--url', URL, '--sheet-id', sheetId, '--range', range, '--as', 'user'],

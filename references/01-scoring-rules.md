@@ -19,14 +19,14 @@
 > **2. 报告文档中，凡定位到具体图片的问题，必须把原图嵌进表格「对照图」单元格。**
 > 涉及表格：三、AMZ 合规度；五、视觉准确度；**五、逐图核查记录**；六、实质问题清单。
 > 技术实现：报告改为 **飞书 DocxXML**（`reports/<ASIN>-诊断报告.xml`），图片用
-> `<img path="@./data/images/xxx.jpg" width="320"/>` 写在 `<td>` 内；上传时 cwd 必须是 `E:/listing_exam`
+> `<img path="@./data/images/xxx.jpg" width="320"/>` 写在 `<td>` 内；上传时 cwd 必须是 `<PROJECT_ROOT>`
 > （`@file` 与 `<img path>` 都只接受 cwd 下的相对路径）。无对应图片的行填 `—`。
 
 > **v9 视频统计口径（最高优先级 · 已与运营核对通过）**
 >
 > **v7 错在哪**：直接数 `#va-related-videos-widget` 里 "Videos for this product" 小节的条目。
 > 那个 carousel 是**轮播混合池**，会把「同变体家族 / 相关商品」的视频也塞进来 ——
-> B0FDQMCKRM 因此被算成 8 条红人，**实际只有 5 条**。
+> B0EX0001 因此被算成 8 条红人，**实际只有 5 条**。
 >
 > **v9 正确做法（三步，缺一不可）**
 > 1. **读主图角标 `#videoCount`** → 该 listing 的视频总数（前台可见的权威数字）。
@@ -47,7 +47,7 @@
 > 3. **禁止用"总数 − 品牌数"反推红人**；**禁止数 widget carousel 的条目数**。
 > 4. 报告中须给出**主图角标数**与角标校验结果，并列出**红人视频明细表**（时长 / 标题 / 创作者）。
 >
-> **B0FDQMCKRM 复核留痕**：角标 `7 VIDEOS` → 面板 7 条 = 品牌 1（Viotiin）
+> **B0EX0001 复核留痕**：角标 `7 VIDEOS` → 面板 7 条 = 品牌 1（BRAND_F）
 > + 红人 5（Kassi Pike / Christina's ×2 / Simply Unland / Stellina…）
 > + 用户 1（Jennifer Du Mond）→ **1 / 5 / 1**，与运营实测一致 ✅。
 > 注意红人**名单会轮换**（不同次打开成员不同），但**三个分类的数量稳定**。
@@ -80,7 +80,7 @@
 
 ## 自有品牌白名单（豁免，跨店铺通用）
 
-`LUVCOSY`、`FANTOVO`、`KIICII`、`PUREKRA`、`LAWNFUL`、`VIOTIIN`、`VASTICIDE`
+`BRAND_A`、`BRAND_B`、`BRAND_C`、`BRAND_D`、`LAWNFUL`、`BRAND_F`、`BRAND_G`
 
 > 表格「品牌」列为内部统计编码，不参与判定。
 
@@ -211,7 +211,7 @@
 - `notes` 会在报告「五、视觉准确度 → 逐图核查记录（含对照图）」中成表展示，**是运营逐图核对的主要依据**。
 - **每一条都必须与当前规则一致**：不再给已豁免项挂 P0/P1 标签，
   不再写「主图规范不合」这类 v4 已废除的判据。
-- **已作废的结论必须删除**，不得留在 notes 里（历史踩坑：`Alian`/`Protoble` 两条误读长期滞留在 B0FDQMCKRM 的核查记录中）。
+- **已作废的结论必须删除**，不得留在 notes 里（历史踩坑：`Alian`/`Protoble` 两条误读长期滞留在 B0EX0001 的核查记录中）。
 
 ---
 
@@ -244,7 +244,7 @@
 
 ## 视觉结论取证规范（v7 强制 · 反幻觉）
 
-> **背景**：行 2（B0DJQS14DS）曾报出「A+ 图 06 图内拼写错误 `HEALTHCARE PROFESSINAL`」
+> **背景**：行 2（B0EX0002）曾报出「A+ 图 06 图内拼写错误 `HEALTHCARE PROFESSINAL`」
 > 与「同图借用第三方获奖徽章」两条结论。运营复核后指出**图上根本没有这行字**；
 > 本机对 A+ 图 01–06 全图 4× 放大逐张重看后确认：**两条结论均为子代理幻觉，已作废**。
 > 同批报告中另外 4 条拼写错误（`freshn` / `Compacity` / `Protable`）与「logo 的 S 镜像」

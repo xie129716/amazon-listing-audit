@@ -2,7 +2,7 @@
    视频统计 v9 —— 权威口径（2026-09-16 最终修正，用户核对通过）
 
    v7/v8 错在哪：直接数 `#va-related-videos-widget` 的条目，会把
-   「同变体家族 / 相关商品」的视频算进来。B0FDQMCKRM 因此被算成 8 条红人。
+   「同变体家族 / 相关商品」的视频算进来。B0EX0002 因此被算成 8 条红人。
 
    v9 正确做法：
      1. 读主图角标 `#videoCount` → 该 listing 视频总数（前台权威数字）。
@@ -17,15 +17,16 @@
      4. 同一红人的多条视频**不去重**，按条目计数。
      5. 报告与表格同时给出角标，便于随时复核。
    ========================================================================== */
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
 
-const sheet = JSON.parse(readFileSync('E:/listing_exam/data/derived/sheet-all-records.json', 'utf8'));
+const sheet = JSON.parse(readFileSync(`${ROOT}/data/derived/sheet-all-records.json`, 'utf8'));
 const recByAsin = {};
 for (const r of sheet.records) recByAsin[r.ASIN] = r;
 
-const DEFAULT = ['B0DJQS14DS', 'B0GF1Z3CFH', 'B0FL6X3HRW', 'B0FF8YBX8P', 'B0GGNM98LD', 'B0FDQMCKRM'];
+const DEFAULT = ['B0EX0001', 'B0EX0005', 'B0EX0004', 'B0EX0003', 'B0EX0006', 'B0EX0002'];
 const ASINS = process.argv.slice(2).length ? process.argv.slice(2) : DEFAULT;
 
 /** 取主图角标视频数（注意：只有 1 条时亚马逊显示 "VIDEO" 而非 "1 VIDEO"） */
@@ -169,6 +170,6 @@ for (const asin of ASINS) {
   await sleep(2000);
 }
 
-writeFileSync('E:/listing_exam/data/derived/video-counts-v9.json', JSON.stringify(out, null, 2), 'utf8');
+writeFileSync(`${ROOT}/data/derived/video-counts-v9.json`, JSON.stringify(out, null, 2), 'utf8');
 console.log('\n-> data/derived/video-counts-v9.json');
 cdp.ws.close();

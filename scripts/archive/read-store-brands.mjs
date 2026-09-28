@@ -1,12 +1,13 @@
+import { ROOT, LARK_CLI } from './paths.mjs';
 import { spawnSync } from 'node:child_process';
 import { writeFileSync } from 'node:fs';
 
-const CLI = 'C:\\Users\\admin\\.workbuddy\\binaries\\node\\cli-connector-packages\\node_modules\\@larksuite\\cli\\bin\\lark-cli.exe';
-const URL = 'https://c7lhitw5pz.feishu.cn/sheets/KsxxsyWQFhlxmet2nIycYU3DnAh';
+const CLI = LARK_CLI;
+const URL = 'https://<TENANT>.feishu.cn/sheets/<SHEET_TOKEN>';
 
 const res = spawnSync(CLI, ['sheets', '+csv-get', '--url', URL, '--sheet-id', 'a81751', '--range', 'A1:G654', '--as', 'user'],
   { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
-writeFileSync('E:/listing_exam/data/raw/sheet-cols-A-G.json', res.stdout, 'utf8');
+writeFileSync(`${ROOT}/data/raw/sheet-cols-A-G.json`, res.stdout, 'utf8');
 const j = JSON.parse(res.stdout);
 
 function parse(line) {
@@ -50,7 +51,7 @@ for (const r of recs.filter((x) => x.__row <= 8)) {
   console.log(`row ${r.__row} | ${r['ASIN']} | 店铺=${r['店铺']} | 品名=${r['品名']} | 品牌列=${r['品牌']} | MSKU=${r['MSKU']}`);
 }
 
-writeFileSync('E:/listing_exam/data/derived/store-brand-map.json', JSON.stringify({
+writeFileSync(`${ROOT}/data/derived/store-brand-map.json`, JSON.stringify({
   stores: Object.fromEntries(Object.entries(byStore).map(([k, v]) => [k, [...v]])),
   brandColumnCounts: brandCol,
 }, null, 2), 'utf8');

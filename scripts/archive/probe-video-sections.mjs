@@ -1,9 +1,10 @@
 /* 把 #va-related-videos-widget 拆成「Videos for this product」与「Related videos for this product」两段，分别取条目。 */
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
 
-const asins = process.argv.slice(2).length ? process.argv.slice(2) : ['B0FF8YBX8P'];
+const asins = process.argv.slice(2).length ? process.argv.slice(2) : ['B0EX0001'];
 const cdp = await connect();
 const sessionId = await getPageSession(cdp);
 const ev = makeEval(cdp, sessionId);
@@ -75,5 +76,5 @@ for (const asin of asins) {
   }
   await sleep(2000);
 }
-writeFileSync('E:/listing_exam/.tmp/video-sections.json', JSON.stringify(out, null, 2), 'utf8');
+writeFileSync(`${ROOT}/.tmp/video-sections.json`, JSON.stringify(out, null, 2), 'utf8');
 cdp.ws.close();

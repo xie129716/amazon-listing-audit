@@ -1,6 +1,7 @@
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const P = 'E:/listing_exam/data/derived/visual-findings.json';
+const P = `${ROOT}/data/derived/visual-findings.json`;
 const v = JSON.parse(readFileSync(P, 'utf8'));
 
 /* ============================================================================
@@ -10,33 +11,33 @@ const v = JSON.parse(readFileSync(P, 'utf8'));
    · 用户视频   = 「Customer Review: <标题>」段
    ========================================================================== */
 const VIDEO = {
-  B0DJQS14DS: {
-    brand: ['Luvcosy'],
+  B0EX0001: {
+    brand: ['BRAND_A'],
     creators: ['Chasity Robinson', 'Mona Ko', 'Authentic Insights with Karen', 'Whitley', 'Amy Lynn'],
     users: ['Nancy M.'],
   },
-  B0GF1Z3CFH: {
-    brand: ['FANTOVO'],
+  B0EX0005: {
+    brand: ['BRAND_B'],
     creators: ['Cara Jess', 'Musclemilkdaddy', 'DisorderlyReviews'],
     users: [],
   },
-  B0FL6X3HRW: {
-    brand: ['Kiicii'],
+  B0EX0004: {
+    brand: ['BRAND_C'],
     creators: ['She Reviews Things', 'She Reviews Things', 'Allison Kate', 'Sarah'],
     users: ['Yorkie Mama'],
   },
-  B0FF8YBX8P: {
-    brand: ['Kiicii'],
+  B0EX0003: {
+    brand: ['BRAND_C'],
     creators: ['Zac & Kori Jones', 'Byron Harter', 'Byron Harter', 'Amy Lynn', 'DisorderlyReviews', 'The Sandro Show'],
     users: [],
   },
-  B0GGNM98LD: {
+  B0EX0006: {
     brand: ['（卖家自建）'],
     creators: [],
     users: [],
     note: '该 listing 主图区仅标注 "VIDEO"（1 条），Related videos 模块未渲染出可解析条目，红人视频数暂记为 0，建议人工复核',
   },
-  B0FDQMCKRM: {
+  B0EX0002: {
     brand: [],
     creators: ['R Alison', "Kassi Pike - Tried & True Reviews", "⭐️IlaMarie's Must Haves⭐️", 'Christina’s Awesome Reviews', 'KPLikedIt', 'Paige McConkey', 'Stephanie Kelly', 'Stellina'],
     users: ['Jennifer Du Mond'],

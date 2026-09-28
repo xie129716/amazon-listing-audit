@@ -1,10 +1,11 @@
 /* 打开一个飞书文档并截图，用于人工核对排版（尤其是表格「对照图」单元格）。 */
+import { ROOT } from './paths.mjs';
 import { writeFileSync } from 'node:fs';
 import { setTimeout as sleep } from 'node:timers/promises';
 
 const PORT = 9333;
 const url = process.argv[2];
-const out = process.argv[3] || 'E:/listing_exam/.tmp/shot.png';
+const out = process.argv[3] || `${ROOT}/.tmp/shot.png`;
 const waitMs = Number(process.argv[4] || 6000);
 
 const list = await (await fetch(`http://127.0.0.1:${PORT}/json/list`)).json();

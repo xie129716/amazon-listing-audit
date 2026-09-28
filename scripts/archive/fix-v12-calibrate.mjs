@@ -1,9 +1,10 @@
 /** 行 16–25 的人工校准：同因合并 + 政策口径统一。先跑 normalize-vf.mjs。 */
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 
-const D = 'E:/listing_exam/data/derived';
-const ASINS = ['B0FC6D38FZ', 'B0FDQ2VVJW', 'B0DB5Y8273', 'B0DB79R95T', 'B0FQ5SGFYM',
-  'B0FJ21QDD7', 'B0DB615DKB', 'B0FPFHW1RJ', 'B0G41529PP', 'B0DB74GYKD'];
+const D = `${ROOT}/data/derived`;
+const ASINS = ['B0EX0005', 'B0EX0006', 'B0EX0001', 'B0EX0004', 'B0EX0009',
+  'B0EX0007', 'B0EX0002', 'B0EX0008', 'B0EX0010', 'B0EX0003'];
 
 const PROP_HINT = /道具|适配对象|罐体|罐身|瓶身|碗体|座椅|机型|适配机型|健身|咖啡机|笔记本|道具本体/;
 const dedupe = (arr, keyFn) => {

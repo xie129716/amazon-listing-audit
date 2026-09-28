@@ -1,3 +1,4 @@
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
@@ -41,7 +42,7 @@ for (const asin of ASINS) {
       else brand.push(e);   // 无前缀 → 品牌自建
     }
     // 品牌自建条目里，署名等于自有品牌的才算品牌视频
-    const ownBrandRe = /(Luvcosy|Fantovo|Kiicii|Purekra|Lawnful|Viotiin|Vasticide)/i;
+    const ownBrandRe = /(BRAND_A|BRAND_B|BRAND_C|BRAND_D|Lawnful|BRAND_F|BRAND_G)/i;
     const brandOnly = brand.filter(e => ownBrandRe.test(e.text));
     const others = brand.filter(e => !ownBrandRe.test(e.text));
 
@@ -66,5 +67,5 @@ for (const asin of ASINS) {
   if (d.othersTexts.length) console.log(`  其他(无前缀) ${d.othersTexts.length}:`, JSON.stringify(d.othersTexts));
   await sleep(2000);
 }
-writeFileSync('E:/listing_exam/data/derived/video-final-counts.json', JSON.stringify(out, null, 2), 'utf8');
+writeFileSync(`${ROOT}/data/derived/video-final-counts.json`, JSON.stringify(out, null, 2), 'utf8');
 cdp.ws.close();

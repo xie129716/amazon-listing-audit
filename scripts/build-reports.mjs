@@ -9,6 +9,7 @@
      1. 合规度放宽 —— 第三方道具本体自带标识豁免（见 scoring.mjs）
      2. 三、五、六 三张问题表新增「对照图」列，把定位到的原图直接嵌入单元格
    ========================================================================== */
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import {
   scoreCompleteness, scoreDeduct, finalise,
@@ -17,10 +18,9 @@ import {
   MIN_GALLERY_IMAGES, MIN_BULLETS,
 } from './scoring.mjs';
 
-const ROOT = 'E:/listing_exam';
 const ASINS = process.argv.slice(2).length
   ? process.argv.slice(2)
-  : ['B0DJQS14DS', 'B0GF1Z3CFH', 'B0FL6X3HRW', 'B0FF8YBX8P', 'B0GGNM98LD', 'B0FDQMCKRM'];
+  : ['B0EX0001', 'B0EX0005', 'B0EX0004', 'B0EX0003', 'B0EX0006', 'B0EX0002'];
 
 const text = JSON.parse(readFileSync(`${ROOT}/data/derived/text-analysis.json`, 'utf8'));
 const health = JSON.parse(readFileSync(`${ROOT}/data/derived/health-analysis.json`, 'utf8'));
@@ -38,8 +38,8 @@ const recByAsin = {};
 for (const r of sheet.records) recByAsin[r.ASIN] = r;
 
 const TITLE_BRAND_CHECK = {
-  B0DJQS14DS: false, B0GF1Z3CFH: false, B0FL6X3HRW: false,
-  B0FF8YBX8P: false, B0GGNM98LD: false, B0FDQMCKRM: null,
+  B0EX0001: false, B0EX0005: false, B0EX0004: false,
+  B0EX0003: false, B0EX0006: false, B0EX0002: null,
 };
 
 const verdict = (s) => s >= 90 ? '合格' : s >= 80 ? '基本合格' : s >= 70 ? '需整改' : s >= 60 ? '不合格' : '严重不合格';

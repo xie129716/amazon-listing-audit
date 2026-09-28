@@ -1,15 +1,16 @@
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const P = 'E:/listing_exam/data/derived/visual-findings.json';
+const P = `${ROOT}/data/derived/visual-findings.json`;
 const v = JSON.parse(readFileSync(P, 'utf8'));
 
 // 调整 4（延续）：图文矛盾只保留「直接相反/放反」型，其余一律转为仅提醒。
 const downgrade = {
-  B0DJQS14DS: [
+  B0EX0001: [
     { match: /Airtight Seal Design/, note: '副图 PT02 文案 "Airtight Seal Design" 配的是「掀盖/倒置」动作瞬间，属展示角度问题，非直接矛盾' },
     { match: /No more spills/, note: 'A+ 图 05 "No more spills" 配倾倒洒粉画面，属演示场景选择问题，非直接矛盾' },
   ],
-  B0GGNM98LD: [
+  B0EX0002: [
     { match: /Poor quality/, note: '副图 PT03 对竞品的负面描述与画面不符，但文案本身表述正常、方向未颠倒' },
     { match: /Messy vs Tidy/, note: '副图 PT06 "Messy vs Tidy" 两格场景/机型不同，按 v4「灰度化即视为已完成对比」不扣分' },
   ],

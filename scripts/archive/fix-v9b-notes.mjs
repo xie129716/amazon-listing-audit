@@ -3,20 +3,21 @@
  *
  * 用户反馈：同一处拼写错误不该在「三、AMZ 合规度」与「五、视觉准确度」重复出现；
  * 顺带发现核查记录里还残留：
- *   · B0FDQMCKRM 写着 "Protoble（应为 Portable）、Alian（应为 Align）" ——
+ *   · B0EX0002 写着 "Protoble（应为 Portable）、Alian（应为 Align）" ——
  *     这两个都是早期子代理的**误读**（图上实际是 "Protable"；"Alian" 系 "Align" 的误报），
  *     已在 v5 规则里纠正过，但这条 note 没同步。
  *   · 多条 note 仍挂着 P0/P1 标签，与 v4/v7 放宽后的实际扣分不符（主图只看白底、
  *     适配对象本体豁免、宣称多于演示只提醒等）。
  */
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const P = 'E:/listing_exam/data/derived/visual-findings.json';
+const P = `${ROOT}/data/derived/visual-findings.json`;
 const vf = JSON.parse(readFileSync(P, 'utf8'));
 
 /** 精确替换（old 必须整条 note 的完整文本） */
 const REPL = {
-  B0FDQMCKRM: [
+  B0EX0002: [
     [
       '图内拼写错误 2 处：Protoble（应为 Portable）、Alian（应为 Align）',
       '图内拼写错误：副图 PT03 与 A+ 图 02 "Protable"（应为 "Portable"）；'
@@ -31,7 +32,7 @@ const REPL = {
       'A+ 图 07/08 展示的是 Yoto 播放器保护套与背带，不在标题售卖清单内（货不对板风险，扣分见「五、视觉准确度」）',
     ],
   ],
-  B0FL6X3HRW: [
+  B0EX0004: [
     [
       '主图 MAIN：纯白底、无文字水印；但右侧两只道具罐罐身压印 LA FERMIÈRE（第三方品牌出现在主图，P0）',
       '主图 MAIN：纯白底、无文字水印，主图检查通过；右侧两只道具罐罐身压印 LA FERMIÈRE，属**适配对象本体**，按规则豁免不扣分',
@@ -49,7 +50,7 @@ const REPL = {
       '副图 PT03 / A+ 图 05：检出图内拼写错误 "freshn"（应为 "freshness"），扣分统一见「三、AMZ 合规度」，本维度不重复计',
     ],
   ],
-  B0FF8YBX8P: [
+  B0EX0003: [
     [
       '主图 MAIN：4 宫格拼图、产品占比实测 73%、同图两种插板结构 → 主图规范不合（P1）',
       '主图 MAIN：纯白底，主图检查通过（v4 起主图只检查是否白底；4 宫格拼图、占比、道具一律不看）',
@@ -71,7 +72,7 @@ const REPL = {
       '副图 PT05 / A+ 图 05：对 "Others" 的描述无画面支撑，文案形容本身正常，仅提醒不扣分',
     ],
   ],
-  B0GGNM98LD: [
+  B0EX0006: [
     [
       '主图 MAIN：产品占比实测仅 52%，且混入整台第三方吸奶器与奶瓶等非售卖道具 → 主图规范不合（P1）',
       '主图 MAIN：纯白底，主图检查通过（v4 起主图只检查是否白底；占比偏低、含非售卖道具一律不看）',
@@ -81,7 +82,7 @@ const REPL = {
       '主图出现的 Spectra 吸奶器主机是**适配对象本体**（我们售卖的是它的支架），按规则豁免不扣分；仅提示主体辨识度可再提高',
     ],
   ],
-  B0DJQS14DS: [
+  B0EX0001: [
     [
       '副图 PT02：文案 Airtight Seal Design 与「掀盖未密封」画面冲突',
       '副图 PT02：文案 Airtight Seal Design 配的是「掀盖/倒置」动作瞬间，属展示角度问题，非直接矛盾，仅提醒不扣分',
@@ -95,7 +96,7 @@ const REPL = {
       '副图 PT01/PT05：检出幽灵文字 "Item - 2.88" 与淡化圆角方框图标轮廓，属生成式图像/模板渗入，建议重新导出（仅提示）',
     ],
   ],
-  B0GF1Z3CFH: [
+  B0EX0005: [
     [
       '副图 PT04 为 Before/After 对比图，标签正确（After=整齐、Before=散乱），仅左右顺序反直觉',
       '副图 PT04 为 Before/After 对比图，标签正确（After=整齐、Before=散乱），无放反，仅左右顺序反直觉（不扣分）',

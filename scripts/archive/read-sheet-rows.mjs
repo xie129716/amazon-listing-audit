@@ -1,8 +1,9 @@
+import { ROOT, LARK_CLI } from './paths.mjs';
 import { spawnSync } from 'node:child_process';
 import { writeFileSync } from 'node:fs';
 
-const CLI = 'C:\\Users\\admin\\.workbuddy\\binaries\\node\\cli-connector-packages\\node_modules\\@larksuite\\cli\\bin\\lark-cli.exe';
-const URL = 'https://c7lhitw5pz.feishu.cn/sheets/KsxxsyWQFhlxmet2nIycYU3DnAh';
+const CLI = LARK_CLI;
+const URL = 'https://<TENANT>.feishu.cn/sheets/<SHEET_TOKEN>';
 
 // A..Q = 17 fields, header on row 1
 const res = spawnSync(CLI, ['sheets', '+csv-get', '--url', URL, '--sheet-id', 'a81751', '--range', 'A1:Q654', '--as', 'user'],
@@ -40,9 +41,9 @@ for (const r of records.slice(0, 8)) {
   console.log(`第 ${r.__row} 行 | ${r.ASIN} | 店铺=${r['店铺']} | 品名=${r['品名']} | MSKU=${r['MSKU']} | 30天销量=${r['30天销量']} | 评分=${r['评分']}`);
 }
 
-writeFileSync('E:/listing_exam/data/derived/sheet-records-1-5.json', JSON.stringify({ header, records: records.slice(0, 12) }, null, 2), 'utf8');
-writeFileSync('E:/listing_exam/data/derived/sheet-all-records.json', JSON.stringify({ header, records }, null, 2), 'utf8');
+writeFileSync(`${ROOT}/data/derived/sheet-records-1-5.json`, JSON.stringify({ header, records: records.slice(0, 12) }, null, 2), 'utf8');
+writeFileSync(`${ROOT}/data/derived/sheet-all-records.json`, JSON.stringify({ header, records }, null, 2), 'utf8');
 const rowMap = {};
 for (const r of records) rowMap[r.__row] = r.ASIN;
-writeFileSync('E:/listing_exam/data/derived/row-asin-map.json', JSON.stringify(rowMap, null, 2), 'utf8');
+writeFileSync(`${ROOT}/data/derived/row-asin-map.json`, JSON.stringify(rowMap, null, 2), 'utf8');
 console.log('\n已写入 sheet-records-1-5.json / sheet-all-records.json / row-asin-map.json');

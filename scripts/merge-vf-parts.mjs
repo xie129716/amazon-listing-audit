@@ -1,12 +1,13 @@
 /** 合并「一个大 ASIN 由两个子代理分头审查」的结果（vf-<ASIN>.json + vf-<ASIN>-b.json）。 */
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 
-const ROOT = 'E:/listing_exam/data/derived';
+const DIR = `${ROOT}/data/derived`;
 const asin = process.argv[2];
 if (!asin) { console.error('usage: node merge-vf-parts.mjs ASIN'); process.exit(1); }
 
-const a = `${ROOT}/vf-${asin}.json`;
-const b = `${ROOT}/vf-${asin}-b.json`;
+const a = `${DIR}/vf-${asin}.json`;
+const b = `${DIR}/vf-${asin}-b.json`;
 if (!existsSync(a) || !existsSync(b)) { console.log(`${asin}: 缺少分片文件（a=${existsSync(a)} b=${existsSync(b)}），跳过`); process.exit(0); }
 
 const A = JSON.parse(readFileSync(a, 'utf8'));

@@ -1,5 +1,6 @@
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
-const P = 'E:/listing_exam/data/derived/visual-findings.json';
+const P = `${ROOT}/data/derived/visual-findings.json`;
 const vf = JSON.parse(readFileSync(P, 'utf8'));
 let n = 0;
 const fix = (s) => String(s).replace(/道具本体自带/g, () => { n++; return '道具自身'; }).replace(/道具本体出厂自带/g, () => { n++; return '道具自身' });

@@ -1,3 +1,4 @@
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
@@ -7,7 +8,7 @@ const sessionId = await getPageSession(cdp);
 const ev = makeEval(cdp, sessionId);
 
 await cdp.send('Emulation.setDeviceMetricsOverride', { width: 1920, height: 4200, deviceScaleFactor: 1, mobile: false }, sessionId);
-await cdp.send('Page.navigate', { url: 'https://www.amazon.com/dp/B0DJQS14DS' }, sessionId);
+await cdp.send('Page.navigate', { url: 'https://www.amazon.com/dp/B0EX0001' }, sessionId);
 for (let i = 0; i < 45; i++) {
   await sleep(1000);
   if (await ev(`!!document.querySelector('#productTitle')`).catch(() => false)) break;
@@ -44,5 +45,5 @@ console.log('\n=== 模块完整文本（未解析）===');
 console.log(d.wholeWidgetText);
 console.log('\n=== DOM 顺序的条目文本 ===');
 d.items.forEach((it) => console.log(`  [${it.i}] ${it.text}`));
-writeFileSync('E:/listing_exam/data/derived/video-raw-B0DJQS14DS.json', JSON.stringify(d, null, 2), 'utf8');
+writeFileSync(`${ROOT}/data/derived/video-raw-B0EX0001.json`, JSON.stringify(d, null, 2), 'utf8');
 cdp.ws.close();

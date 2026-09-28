@@ -6,9 +6,10 @@
  *   「扣分统一见「三、AMZ 合规度」，本维度不重复计」「（共 N 处…合并计一次）」
  * 保留的是诊断本身：什么图、什么内容、什么问题、建议怎么改。
  */
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const P = 'E:/listing_exam/data/derived/visual-findings.json';
+const P = `${ROOT}/data/derived/visual-findings.json`;
 const vf = JSON.parse(readFileSync(P, 'utf8'));
 
 /** 规则机制类片段（会被整段删除） */

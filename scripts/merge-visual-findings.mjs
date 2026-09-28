@@ -8,13 +8,13 @@
  *  - 合并前做基本字段校验，缺字段的按空数组补齐；
  *  - 记录来源与合并时间，便于回溯。
  */
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 
-const ROOT = 'E:/listing_exam';
 const P = `${ROOT}/data/derived/visual-findings.json`;
 const vf = JSON.parse(readFileSync(P, 'utf8'));
 
-const DEFAULT = ['B0FZKG6V1K', 'B0FJXZ25GY', 'B0FDW97HZZ', 'B0DB7J5C47', 'B0G42HD23D'];
+const DEFAULT = ['B0EX0004', 'B0EX0003', 'B0EX0002', 'B0EX0001', 'B0EX0005'];
 const ASINS = process.argv.slice(2).length ? process.argv.slice(2) : DEFAULT;
 
 const ARRAY_FIELDS = [

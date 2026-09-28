@@ -1,7 +1,8 @@
-/** B0DF7K87B1 人工校准（本人复核后）。 */
+/** B0EX0001 人工校准（本人复核后）。 */
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const P = 'E:/listing_exam/data/derived/vf-B0DF7K87B1.json';
+const P = `${ROOT}/data/derived/vf-B0EX0001.json`;
 const v = JSON.parse(readFileSync(P, 'utf8'));
 
 /* 1. 冰箱场景里的酒类品牌：道具本体上（非卖家叠加）→ 合并为一条、标 onProp（不作为问题，仅建议裁切）
@@ -44,7 +45,7 @@ v.remainingIssues = [
 ].filter((r, i, a) => a.findIndex((y) => y.level + y.msg === r.level + r.msg) === i);
 
 writeFileSync(P, JSON.stringify(v, null, 2), 'utf8');
-console.log('B0DF7K87B1 校准完成');
+console.log('B0EX0001 校准完成');
 console.log('  thirdPartyUnrelated:', v.thirdPartyUnrelated.length, '(onProp:', v.thirdPartyUnrelated.filter((x) => x.onProp).length + ')');
 console.log('  misleadingContradiction:', v.misleadingContradiction.length);
 console.log('  brandVariants:', v.brandVariants.length, '| materialClaims:', v.materialClaims.length);

@@ -1,6 +1,7 @@
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const P = 'E:/listing_exam/data/derived/visual-findings.json';
+const P = `${ROOT}/data/derived/visual-findings.json`;
 const v = JSON.parse(readFileSync(P, 'utf8'));
 
 /* ============================================================================
@@ -13,8 +14,8 @@ const v = JSON.parse(readFileSync(P, 'utf8'));
    · 权威来源：模块可见条目原文；不用固定字符窗口匹配 creatorType
    ========================================================================== */
 const VIDEO = {
-  B0DJQS14DS: {
-    brand: [{ dur: '0:45', text: 'Silicone Powder Cleanser Lids', creator: 'Luvcosy' }],
+  B0EX0001: {
+    brand: [{ dur: '0:45', text: 'Silicone Powder Cleanser Lids', creator: 'BRAND_A' }],
     creators: [
       { dur: '1:20', text: 'Honest Review of these Silicone Powder Cleaner Lids', creator: 'Whitley' },
       { dur: '2:33', text: 'Great Solution! Finally! Lids For my Bar keepers cleaner', creator: '⭐ Authentic Insights with Karen⭐' },
@@ -24,8 +25,8 @@ const VIDEO = {
     ],
     customers: [{ dur: '0:12', text: 'Works GREAT for damp locations!', creator: 'Nancy M.' }],
   },
-  B0GF1Z3CFH: {
-    brand: [{ dur: '0:33', text: '3ml Vial Peptide Storage Case', creator: 'FANTOVO' }],
+  B0EX0005: {
+    brand: [{ dur: '0:33', text: '3ml Vial Peptide Storage Case', creator: 'BRAND_B' }],
     creators: [
       { dur: '3:08', text: 'A must if you use peptides!', creator: 'Cara Jess' },
       { dur: '2:13', text: 'Peptides Always Falling Around!? (Safe Keeping)', creator: 'Musclemilkdaddy' },
@@ -33,8 +34,8 @@ const VIDEO = {
     ],
     customers: [],
   },
-  B0FL6X3HRW: {
-    brand: [{ dur: '0:36', text: '8PCs La Fermiere Yogurt Jar Lids', creator: 'Kiicii' }],
+  B0EX0004: {
+    brand: [{ dur: '0:36', text: '8PCs La Fermiere Yogurt Jar Lids', creator: 'BRAND_C' }],
     creators: [
       { dur: '1:04', text: 'Reusable lids that fit La Fermiere Yogurt Jars', creator: 'Sarah' },
       { dur: '1:04', text: 'Worth it? Watch this to find about these La Fermiere lids', creator: 'She Reviews Things' },
@@ -43,26 +44,26 @@ const VIDEO = {
     ],
     customers: [{ dur: '0:59', text: 'Saved my ultimate yogurt jars (and my sanity)! Fits Oui jars too', creator: 'Yorkie Mama' }],
   },
-  B0FF8YBX8P: {
-    brand: [{ dur: '0:50', text: 'Silicone 3ml Vial Insert Compatible with Hydrapeak Food Jars', creator: 'Kiicii' }],
+  B0EX0003: {
+    brand: [{ dur: '0:50', text: 'Silicone 3ml Vial Insert Compatible with Hydrapeak Food Jars', creator: 'BRAND_C' }],
     creators: [
       { dur: '1:08', text: 'Features of the 3ml Silicone Vial Holders', creator: 'Zac & Kori Jones' },
-      { dur: '1:00', text: 'KiiCii Silicone 3ml Vial Insert (1 short +2 tall) Review', creator: 'Byron Harter' },
-      { dur: '3:01', text: 'Purekra Silicone 3ml Vial Insert Set Review', creator: 'Byron Harter' },
+      { dur: '1:00', text: 'BRAND_C Silicone 3ml Vial Insert (1 short +2 tall) Review', creator: 'Byron Harter' },
+      { dur: '3:01', text: 'BRAND_D Silicone 3ml Vial Insert Set Review', creator: 'Byron Harter' },
       { dur: '0:57', text: 'Peptide or Medical Vial Storage Cooler for Fridge or Travel', creator: 'Amy Lynn' },
       { dur: '3:45', text: '3ml Vial Case and Organizer HONEST REVIEW', creator: 'DisorderlyReviews' },
       { dur: '1:39', text: '3ml vial storage unboxing - take a look!', creator: 'The Sandro Show' },
     ],
     customers: [],
   },
-  B0GGNM98LD: {
-    brand: [{ dur: '', text: 'bottle and hose holder', creator: 'FANTOVO' }],
+  B0EX0006: {
+    brand: [{ dur: '', text: 'bottle and hose holder', creator: 'BRAND_B' }],
     creators: [],
     customers: [],
     note: '运营已确认：仅 1 条品牌方视频，无红人视频、无用户视频',
   },
-  B0FDQMCKRM: {
-    brand: [{ dur: '0:00', text: 'Reusable Plastic Card Holder for Yoto Cards', creator: 'Viotiin' }],
+  B0EX0002: {
+    brand: [{ dur: '0:00', text: 'Reusable Plastic Card Holder for Yoto Cards', creator: 'BRAND_F' }],
     creators: [
       { dur: '0:30', text: 'Great for yoto cards and more!', creator: 'R Alison' },
       { dur: '1:43', text: "Do they hold the cards securely? Mom's Opinion!", creator: 'Kassi Pike - Tried & True Reviews' },

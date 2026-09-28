@@ -1,3 +1,4 @@
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
@@ -62,5 +63,5 @@ for (const asin of ASINS) {
   console.log(`  Earns Commissions 出现 ${d.earnsCommissions} 次`);
   await sleep(2500);
 }
-writeFileSync('E:/listing_exam/data/derived/video-counts-final.json', JSON.stringify(out, null, 2), 'utf8');
+writeFileSync(`${ROOT}/data/derived/video-counts-final.json`, JSON.stringify(out, null, 2), 'utf8');
 cdp.ws.close();

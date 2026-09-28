@@ -1,9 +1,10 @@
 /* 从页面 HTML 中抽取 vse 视频元数据数组（videoDataList / carouselItems / relatedCarouselItems）。 */
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
 
-const asin = process.argv[2] || 'B0FDQMCKRM';
+const asin = process.argv[2] || 'B0EX0001';
 const cdp = await connect();
 const sessionId = await getPageSession(cdp);
 const ev = makeEval(cdp, sessionId);
@@ -50,7 +51,7 @@ const d = await ev(`(() => {
   };
 })()`);
 
-writeFileSync(`E:/listing_exam/.tmp/video-data-${asin}.json`, JSON.stringify(d, null, 2), 'utf8');
+writeFileSync(`${ROOT}/.tmp/video-data-${asin}.json`, JSON.stringify(d, null, 2), 'utf8');
 console.log('videoCount:', d.videoCount);
 for (const k of ['videoDataList', 'carouselItems', 'relatedCarouselItems']) {
   const a = d[k];

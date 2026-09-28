@@ -1,6 +1,7 @@
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const P = 'E:/listing_exam/data/derived/visual-findings.json';
+const P = `${ROOT}/data/derived/visual-findings.json`;
 const v = JSON.parse(readFileSync(P, 'utf8'));
 
 // v4 字段迁移：mainImageThirdParty -> mainImageThirdPartyLogo（只保留「本商品主体上的 logo」）
@@ -8,25 +9,25 @@ const v = JSON.parse(readFileSync(P, 'utf8'));
 // 新增 mainImageWhiteBackground（v4 主图只查白底）
 const MAIN_IMG_BRAND_LOGO = {
   // 只有品牌 logo 印在「本商品主体」上才算违规；以下均为第三方罐体/设备本体，属展示需要 → 不计
-  B0DJQS14DS: [],
-  B0GF1Z3CFH: [],
-  B0FL6X3HRW: [],
-  B0FF8YBX8P: [],
-  B0GGNM98LD: [],
-  B0FDQMCKRM: [],
+  B0EX0001: [],
+  B0EX0005: [],
+  B0EX0004: [],
+  B0EX0003: [],
+  B0EX0006: [],
+  B0EX0002: [],
 };
 const WHITE_BG = {
-  B0DJQS14DS: true, B0GF1Z3CFH: true, B0FL6X3HRW: true,
-  B0FF8YBX8P: true, B0GGNM98LD: true, B0FDQMCKRM: true,
+  B0EX0001: true, B0EX0005: true, B0EX0004: true,
+  B0EX0003: true, B0EX0006: true, B0EX0002: true,
 };
 // 贬损性对比：v4 只看文案是否正常/颠倒。逐条核定：
 const DISPARAGEMENT_ABNORMAL = {
-  // B0FL6X3HRW PT04 对 OTHER LIDS 的四项负面描述，语句本身正常、未颠倒 → 不计
-  B0FL6X3HRW: [],
-  // B0FF8YBX8P 对 Others 的描述语句正常 → 不计
-  B0FF8YBX8P: [],
-  // B0GGNM98LD PT03 对竞品的四项描述语句正常、方向未颠倒 → 不计
-  B0GGNM98LD: [],
+  // B0EX0004 PT04 对 OTHER LIDS 的四项负面描述，语句本身正常、未颠倒 → 不计
+  B0EX0004: [],
+  // B0EX0003 对 Others 的描述语句正常 → 不计
+  B0EX0003: [],
+  // B0EX0006 PT03 对竞品的四项描述语句正常、方向未颠倒 → 不计
+  B0EX0006: [],
 };
 
 for (const [asin, e] of Object.entries(v)) {

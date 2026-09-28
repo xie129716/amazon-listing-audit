@@ -1,3 +1,4 @@
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
@@ -63,5 +64,5 @@ for (const asin of ASINS) {
   d.cards.slice(0, 10).forEach((c, i) => console.log(`   [${i + 1}] alt="${c.alt}" | ${c.text.slice(0, 140)}`));
   await sleep(2500);
 }
-writeFileSync('E:/listing_exam/data/derived/video-related-widget.json', JSON.stringify(out, null, 2), 'utf8');
+writeFileSync(`${ROOT}/data/derived/video-related-widget.json`, JSON.stringify(out, null, 2), 'utf8');
 cdp.ws.close();

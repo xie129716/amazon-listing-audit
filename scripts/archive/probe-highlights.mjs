@@ -1,3 +1,4 @@
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync, mkdirSync } from 'node:fs';
 
@@ -53,7 +54,7 @@ const probe = await ev(`(() => {
 console.log(probe);
 
 // also check an Amazon SEARCH result card (where Item Highlights render)
-await cdp.send('Page.navigate', { url: 'https://www.amazon.com/s?k=B0DJQS14DS' }, sessionId);
+await cdp.send('Page.navigate', { url: 'https://www.amazon.com/s?k=B0EX0001' }, sessionId);
 await sleep(7000);
 const search = await ev(`(() => {
   const txt = (s) => (s||'').replace(/\\s+/g,' ').trim();
@@ -69,6 +70,6 @@ const search = await ev(`(() => {
 })()`);
 console.log('SEARCH CARD:', search);
 
-mkdirSync('E:/listing_exam/data/derived', { recursive: true });
-writeFileSync('E:/listing_exam/data/derived/probe-highlights.json', JSON.stringify({ probe, search }, null, 2), 'utf8');
+mkdirSync(`${ROOT}/data/derived`, { recursive: true });
+writeFileSync(`${ROOT}/data/derived/probe-highlights.json`, JSON.stringify({ probe, search }, null, 2), 'utf8');
 ws.close();

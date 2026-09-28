@@ -13,10 +13,10 @@
  *     · 仅仅「句号后缺空格」这类**标点**问题不算拼写错误 → 移出 spellingInImage，改为提示
  *     · `imageSpelling` 一律清空（拼写只在合规维度计一次）
  */
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 
-const ROOT = 'E:/listing_exam';
-const DEFAULT = ['B0FZKG6V1K', 'B0FJXZ25GY', 'B0FDW97HZZ', 'B0DB7J5C47', 'B0G42HD23D'];
+const DEFAULT = ['B0EX0004', 'B0EX0003', 'B0EX0002', 'B0EX0001', 'B0EX0005'];
 const ASINS = process.argv.slice(2).length ? process.argv.slice(2) : DEFAULT;
 
 /** 把任意形状的 entry 压成一句话 */

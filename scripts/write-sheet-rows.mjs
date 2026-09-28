@@ -1,9 +1,10 @@
+import { ROOT, LARK_CLI } from './paths.mjs';
 import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 
-const CLI = 'C:\\Users\\admin\\.workbuddy\\binaries\\node\\cli-connector-packages\\node_modules\\@larksuite\\cli\\bin\\lark-cli.exe';
-const URL = 'https://c7lhitw5pz.feishu.cn/sheets/KsxxsyWQFhlxmet2nIycYU3DnAh';
-process.chdir('E:/listing_exam');
+const CLI = LARK_CLI;
+const URL = 'https://<TENANT>.feishu.cn/sheets/<SHEET_TOKEN>';
+process.chdir(`${ROOT}`);
 
 const text = JSON.parse(readFileSync('data/derived/text-analysis.json', 'utf8'));
 const scores = JSON.parse(readFileSync('data/derived/scores.json', 'utf8'));
@@ -11,11 +12,11 @@ const docs = JSON.parse(readFileSync('data/derived/doc-urls.json', 'utf8'));
 const vis = JSON.parse(readFileSync('data/derived/visual-findings.json', 'utf8'));
 
 const ROWS = {
-  B0DJQS14DS: 2, B0GF1Z3CFH: 3, B0FL6X3HRW: 4, B0FF8YBX8P: 5, B0GGNM98LD: 6, B0FDQMCKRM: 7,
-  B0FZKG6V1K: 8, B0FJXZ25GY: 9, B0FDW97HZZ: 10, B0DB7J5C47: 11, B0G42HD23D: 12,
-  B0DF7K87B1: 13, B0F1SNXQZS: 14, B0FKTM3BYG: 15,
-  B0FC6D38FZ: 16, B0FDQ2VVJW: 17, B0DB5Y8273: 18, B0DB79R95T: 19, B0FQ5SGFYM: 20,
-  B0FJ21QDD7: 21, B0DB615DKB: 22, B0FPFHW1RJ: 23, B0G41529PP: 24, B0DB74GYKD: 25,
+  B0EX0007: 2, B0EX0023: 3, B0EX0017: 4, B0EX0013: 5, B0EX0024: 6, B0EX0011: 7,
+  B0EX0020: 8, B0EX0015: 9, B0EX0012: 10, B0EX0005: 11, B0EX0022: 12,
+  B0EX0006: 13, B0EX0008: 14, B0EX0016: 15,
+  B0EX0009: 16, B0EX0010: 17, B0EX0001: 18, B0EX0004: 19, B0EX0019: 20,
+  B0EX0014: 21, B0EX0002: 22, B0EX0018: 23, B0EX0021: 24, B0EX0003: 25,
 };
 
 function call(args, label) {

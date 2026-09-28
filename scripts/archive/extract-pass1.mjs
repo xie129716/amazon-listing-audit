@@ -1,6 +1,7 @@
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 
-const ASINS = ['B0DJQS14DS', 'B0GF1Z3CFH', 'B0FL6X3HRW'];
+const ASINS = ['B0EX0001', 'B0EX0003', 'B0EX0002'];
 
 function decode(s) {
   return (s || '')
@@ -34,8 +35,8 @@ function scanText(text, label) {
 
 const out = {};
 for (const asin of ASINS) {
-  const html = readFileSync(`E:/listing_exam/data/raw/${asin}.html`, 'utf8');
-  const json = JSON.parse(readFileSync(`E:/listing_exam/data/raw/${asin}.json`, 'utf8'));
+  const html = readFileSync(`${ROOT}/data/raw/${asin}.html`, 'utf8');
+  const json = JSON.parse(readFileSync(`${ROOT}/data/raw/${asin}.json`, 'utf8'));
 
   // ---------- A+ image urls ----------
   const aplusSections = [];
@@ -60,7 +61,7 @@ for (const asin of ASINS) {
   for (const m of aplusRegion.matchAll(/class="[^"]*aplus-module[^"]*"/g)) aplusSections.push(m[0]);
 
   // ---------- evidence of brand removal ----------
-  const brandTokens = ['Luvcosy', 'LUVCOSY', 'fantovo', 'FANTOVO', 'Kiicii', 'KIICII',
+  const brandTokens = ['BRAND_A', 'BRAND_A', 'BRAND_B', 'BRAND_B', 'BRAND_C', 'BRAND_C',
     'Bar Keepers Friend', 'Comet', 'Ajax', 'Bonami', 'La Fermiere', 'La Fermière'];
   const brandMentions = {};
   for (const t of brandTokens) {
@@ -99,8 +100,8 @@ for (const asin of ASINS) {
   };
 }
 
-mkdirSync('E:/listing_exam/data/derived', { recursive: true });
-writeFileSync('E:/listing_exam/data/derived/extract-pass1.json', JSON.stringify(out, null, 2), 'utf8');
+mkdirSync(`${ROOT}/data/derived`, { recursive: true });
+writeFileSync(`${ROOT}/data/derived/extract-pass1.json`, JSON.stringify(out, null, 2), 'utf8');
 
 for (const [asin, d] of Object.entries(out)) {
   console.log('=====', asin, '=====');

@@ -1,14 +1,15 @@
 /* 单次加载内同时取：角标、segment 条目（带 aci）、元数据（related/creatorType），并对齐分析。 */
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { readFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
 
-const sheet = JSON.parse(readFileSync('E:/listing_exam/data/derived/sheet-all-records.json', 'utf8'));
+const sheet = JSON.parse(readFileSync(`${ROOT}/data/derived/sheet-all-records.json`, 'utf8'));
 const recByAsin = {};
 for (const r of sheet.records) recByAsin[r.ASIN] = r;
 
-const asins = process.argv.slice(2).length ? process.argv.slice(2) : ['B0FDQMCKRM', 'B0FF8YBX8P'];
+const asins = process.argv.slice(2).length ? process.argv.slice(2) : ['B0EX0001', 'B0EX0002'];
 const cdp = await connect();
 const sessionId = await getPageSession(cdp);
 const ev = makeEval(cdp, sessionId);

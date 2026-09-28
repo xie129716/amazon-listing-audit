@@ -1,9 +1,10 @@
+import { ROOT } from './paths.mjs';
 import { spawn } from 'node:child_process';
 import { mkdirSync } from 'node:fs';
 import { setTimeout as sleep } from 'node:timers/promises';
 
 const EDGE = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe';
-const PROFILE = 'E:\\listing_exam\\.edge-profile';
+const PROFILE = `${ROOT}/.edge-profile`;
 const PORT = 9333;
 
 mkdirSync(PROFILE, { recursive: true });

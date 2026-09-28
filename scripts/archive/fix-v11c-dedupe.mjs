@@ -1,5 +1,6 @@
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
-const P = 'E:/listing_exam/data/derived/vf-B0DF7K87B1.json';
+const P = `${ROOT}/data/derived/vf-B0EX0001.json`;
 const v = JSON.parse(readFileSync(P, 'utf8'));
 v.remainingIssues = v.remainingIssues.filter((r) => {
   const w = String(r.where || ''), m = String(r.msg || '');

@@ -1,9 +1,10 @@
 /* 单次加载内对齐：主图角标 #videoCount / carousel 条目 / 页面内 vse 视频 ID / creatorType JSON。 */
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
 
-const asin = process.argv[2] || 'B0FDQMCKRM';
+const asin = process.argv[2] || 'B0EX0001';
 const cdp = await connect();
 const sessionId = await getPageSession(cdp);
 const ev = makeEval(cdp, sessionId);
@@ -52,7 +53,7 @@ const d = await ev(`(() => {
   return out;
 })()`);
 
-writeFileSync('E:/listing_exam/.tmp/video-align.json', JSON.stringify(d, null, 2), 'utf8');
+writeFileSync(`${ROOT}/.tmp/video-align.json`, JSON.stringify(d, null, 2), 'utf8');
 console.log('videoCount:', d.videoCount);
 console.log('carousel entries:', d.carousel.length);
 for (const c of d.carousel) console.log(`   ${c.aci}  ::  ${c.text.replace(/\\n/g, ' | ')}`);

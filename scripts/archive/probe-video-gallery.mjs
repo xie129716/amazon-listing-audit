@@ -1,9 +1,10 @@
 /* 点击主图区的「N VIDEOS」缩略图，打开商品自己的视频列表，取出权威清单。 */
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
 
-const asin = process.argv[2] || 'B0FF8YBX8P';
+const asin = process.argv[2] || 'B0EX0001';
 const cdp = await connect();
 const sessionId = await getPageSession(cdp);
 const ev = makeEval(cdp, sessionId);
@@ -44,7 +45,7 @@ const dump = await ev(`(() => {
   return out;
 })()`);
 
-writeFileSync(`E:/listing_exam/.tmp/gallery-${asin}.json`, JSON.stringify(dump, null, 2), 'utf8');
+writeFileSync(`${ROOT}/.tmp/gallery-${asin}.json`, JSON.stringify(dump, null, 2), 'utf8');
 console.log('\ncontainers:');
 for (const c of dump.containers) console.log(`  ${c.sel}: ${c.text.slice(0, 600)}`);
 console.log('\nheadings:', JSON.stringify(dump.headings));

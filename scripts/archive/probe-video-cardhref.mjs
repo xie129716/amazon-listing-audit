@@ -2,7 +2,7 @@
 import { setTimeout as sleep } from 'node:timers/promises';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
 
-const asin = process.argv[2] || 'B0FDQMCKRM';
+const asin = process.argv[2] || 'B0EX0001';
 const cdp = await connect();
 const sessionId = await getPageSession(cdp);
 const ev = makeEval(cdp, sessionId);

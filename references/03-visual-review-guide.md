@@ -1,6 +1,6 @@
 # 子代理视觉审查指引（v10 · 必读）
 
-你是亚马逊 listing 视觉合规审查员。工作目录 `E:\listing_exam`。
+你是亚马逊 listing 视觉合规审查员。工作目录 `<PROJECT_ROOT>`。
 **先完整读完本文件**，再按父代理给你的 ASIN 与图片清单执行，最后用 `write` 工具输出 JSON。
 
 ---
@@ -32,10 +32,10 @@
 | **图片内英文拼写错误**（真错字） | **−10 / 处** |
 | 绝对化表述（真含 `100%`、`guaranty/guarantee`、`best seller`、`#1`、`safest`、`perfect`、`unlimited`、`unbreakable`、`forever`、`lifetime`、`flawless`） | −5 |
 | 材质宣称缺证据（Food-grade / BPA-free / 防漏等无检测依据） | −3 |
-| 品牌写法不一致（如 PUREKRA vs Purekra） | −2 |
+| 品牌写法不一致（如 BRAND_D vs BRAND_D） | −2 |
 
 **本公司全部自有品牌（跨店铺都算自有）**：
-`LUVCOSY`、`FANTOVO`、`KIICII`、`PUREKRA`、`LAWFUL`、`VIOTIIN`、`VASTICIDE`
+`BRAND_A`、`BRAND_B`、`BRAND_C`、`BRAND_D`、`BRAND_E`、`BRAND_F`、`BRAND_G`
 > 每个 listing **只能出现本店铺自己的那个品牌**；出现**别的**自有品牌就是「跨店铺混用」，要单独指出。
 
 ## 三、★★ 拼写错误必须自证（最重要）
@@ -45,7 +45,7 @@
 **凡拼写错误结论，必须先用脚本裁剪放大，再逐字读出原文**：
 
 ```
-cd E:\listing_exam
+cd <PROJECT_ROOT>
 node scripts/crop.mjs "data/images/xxx.jpg" ".tmp/c1.png" <x> <y> <宽> <高> 4
 ```
 

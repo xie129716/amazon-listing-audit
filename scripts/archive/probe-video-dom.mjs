@@ -1,3 +1,4 @@
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
@@ -6,7 +7,7 @@ const cdp = await connect();
 const sessionId = await getPageSession(cdp);
 const ev = makeEval(cdp, sessionId);
 
-await cdp.send('Page.navigate', { url: 'https://www.amazon.com/dp/B0DJQS14DS' }, sessionId);
+await cdp.send('Page.navigate', { url: 'https://www.amazon.com/dp/B0EX0001' }, sessionId);
 for (let i = 0; i < 45; i++) {
   await sleep(1000);
   if (await ev(`!!document.querySelector('#productTitle')`).catch(() => false)) break;
@@ -63,5 +64,5 @@ console.log(dump.containerText);
 console.log('\n=== 卡片 ===');
 dump.cards.slice(0, 20).forEach((c, i) => console.log(`  [${i + 1}] (${c.sel}) alt="${c.alt}" text="${c.text.slice(0, 150)}"`));
 
-writeFileSync('E:/listing_exam/data/derived/video-dom-dump.json', JSON.stringify(dump, null, 2), 'utf8');
+writeFileSync(`${ROOT}/data/derived/video-dom-dump.json`, JSON.stringify(dump, null, 2), 'utf8');
 cdp.ws.close();

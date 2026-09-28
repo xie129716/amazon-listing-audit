@@ -5,7 +5,7 @@ const cdp = await connect();
 const sessionId = await getPageSession(cdp);
 const ev = makeEval(cdp, sessionId);
 
-await cdp.send('Page.navigate', { url: 'https://www.amazon.com/dp/B0FDQMCKRM' }, sessionId);
+await cdp.send('Page.navigate', { url: 'https://www.amazon.com/dp/B0EX0001' }, sessionId);
 for (let i = 0; i < 40; i++) {
   await sleep(1000);
   const ready = await ev(`!!document.querySelector('#productTitle')`).catch(() => false);

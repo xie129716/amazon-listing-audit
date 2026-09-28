@@ -1,3 +1,4 @@
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
@@ -35,5 +36,5 @@ for (const asin of ASINS) {
   console.log(`${asin}: 主图区标注 "${d.countText}" → 视频总数 ${d.total} | 轮播条目 ${d.carousel} | 卖家自建 ${d.sellerVideos} → 红人/用户视频 ≈ ${Math.max(0, d.total - Math.max(d.sellerVideos, d.total > 0 ? 1 : 0))}`);
   await sleep(2500);
 }
-writeFileSync('E:/listing_exam/data/derived/video-totals.json', JSON.stringify(out, null, 2), 'utf8');
+writeFileSync(`${ROOT}/data/derived/video-totals.json`, JSON.stringify(out, null, 2), 'utf8');
 cdp.ws.close();

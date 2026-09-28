@@ -1,3 +1,4 @@
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
@@ -8,7 +9,7 @@ const ev = makeEval(cdp, sessionId);
 
 // 扩大视口，让轮播一次性渲染更多卡片
 await cdp.send('Emulation.setDeviceMetricsOverride', { width: 1920, height: 4000, deviceScaleFactor: 1, mobile: false }, sessionId);
-await cdp.send('Page.navigate', { url: 'https://www.amazon.com/dp/B0DJQS14DS' }, sessionId);
+await cdp.send('Page.navigate', { url: 'https://www.amazon.com/dp/B0EX0001' }, sessionId);
 for (let i = 0; i < 45; i++) {
   await sleep(1000);
   if (await ev(`!!document.querySelector('#productTitle')`).catch(() => false)) break;
@@ -49,5 +50,5 @@ const dump = await ev(`(() => {
   }).slice(0, 8000);
 })()`);
 console.log(dump);
-writeFileSync('E:/listing_exam/data/derived/video-widget-dump.json', dump, 'utf8');
+writeFileSync(`${ROOT}/data/derived/video-widget-dump.json`, dump, 'utf8');
 cdp.ws.close();

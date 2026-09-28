@@ -1,3 +1,4 @@
+import { ROOT } from './paths.mjs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { writeFileSync } from 'node:fs';
 import { connect, getPageSession, makeEval } from './amz-lib.mjs';
@@ -62,5 +63,5 @@ for (const asin of ASINS) {
   if (d.unknown.length) console.log(`  未标类型 ${d.unknown.length}:`, JSON.stringify(d.unknown));
   await sleep(2000);
 }
-writeFileSync('E:/listing_exam/data/derived/video-anchored.json', JSON.stringify(out, null, 2), 'utf8');
+writeFileSync(`${ROOT}/data/derived/video-anchored.json`, JSON.stringify(out, null, 2), 'utf8');
 cdp.ws.close();

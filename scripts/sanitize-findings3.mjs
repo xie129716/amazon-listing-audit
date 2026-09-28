@@ -1,5 +1,6 @@
+import { ROOT } from './paths.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
-const P = 'E:/listing_exam/data/derived/visual-findings.json';
+const P = `${ROOT}/data/derived/visual-findings.json`;
 const vf = JSON.parse(readFileSync(P, 'utf8'));
 let n = 0;
 const fix = (s) => String(s).replace(/属道具本体出厂自带的包装印刷文字/g, () => { n++; return '盒面文字是包装本身印刷的内容，无需抹除'; });
